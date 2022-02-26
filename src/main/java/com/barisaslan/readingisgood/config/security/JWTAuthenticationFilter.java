@@ -5,7 +5,6 @@ import com.barisaslan.readingisgood.dao.entity.Customer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,10 +23,14 @@ import java.util.Date;
 import static com.barisaslan.readingisgood.config.security.SecurityConstants.*;
 
 @Slf4j
-@RequiredArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+        setFilterProcessesUrl("/api/customers/login");
+    }
 
     @Override
     @SneakyThrows

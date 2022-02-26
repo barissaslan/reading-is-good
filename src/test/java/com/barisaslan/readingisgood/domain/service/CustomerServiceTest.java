@@ -63,7 +63,7 @@ class CustomerServiceTest {
     void getCustomerByEmailShouldReturnCustomer() {
         when(customerRepository.findCustomerByEmail(anyString())).thenReturn(Optional.of(TestHelper.getFakeCustomer()));
 
-        final Customer customer = customerService.getCustomerByEmail("test");
+        final UserDetails customer = customerService.loadUserByUsername("test");
 
         assertEquals("baris@test.com", customer.getUsername());
     }
@@ -74,7 +74,7 @@ class CustomerServiceTest {
 
         UsernameNotFoundException thrown = assertThrows(
                 UsernameNotFoundException.class,
-                () -> customerService.getCustomerByEmail("test")
+                () -> customerService.loadUserByUsername("test")
         );
 
         assertTrue(thrown.getMessage().contains("test"));

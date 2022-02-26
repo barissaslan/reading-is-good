@@ -4,6 +4,7 @@ import com.barisaslan.readingisgood.common.exceptions.EmailUserAlreadyExistExcep
 import com.barisaslan.readingisgood.dao.entity.Customer;
 import com.barisaslan.readingisgood.dao.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerByEmail(String email) {
+    public UserDetails loadUserByUsername(String email) {
         Optional<Customer> customer = customerRepository.findCustomerByEmail(email);
 
         if (customer.isEmpty()) {
