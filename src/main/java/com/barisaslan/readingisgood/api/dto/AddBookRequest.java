@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -17,15 +18,21 @@ public class AddBookRequest {
 
     @NotNull
     @Size(max = 250)
-    private String name;
+    private String title;
 
+    @NotNull
     @Positive
     private long stockCount;
 
+    @NotNull
+    @Positive
+    private BigDecimal price;
+
     public BookDto toModel() {
         return BookDto.builder()
-                .name(name)
+                .title(title)
                 .stockCount(stockCount)
+                .price(price)
                 .build();
     }
 

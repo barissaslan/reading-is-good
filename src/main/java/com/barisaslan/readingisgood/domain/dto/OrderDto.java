@@ -4,14 +4,15 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder
-public class BookDto {
+public class OrderDto {
 
     private String id;
-    private String title;
-    private long stockCount;
-    private BigDecimal price;
+    private List<OrderItemDto> orderItems;
+    private BigDecimal totalPrice;
+    private String customerEmail;
 
 }

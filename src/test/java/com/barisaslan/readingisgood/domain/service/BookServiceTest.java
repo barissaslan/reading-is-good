@@ -8,6 +8,7 @@ import com.barisaslan.readingisgood.domain.dto.BookDto;
 import com.barisaslan.readingisgood.domain.dto.UpdateBookStockDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -33,20 +34,24 @@ class BookServiceTest {
     @Test
     void addBookShouldSaveBook() {
         BookDto bookDto = BookDto.builder()
-                .name("Hayvanlar Çiftliği")
+                .title("Hayvanlar Çiftliği")
                 .stockCount(10)
                 .build();
 
         bookService.addBook(bookDto);
 
-        verify(bookRepository).save(any(Book.class));
+        ArgumentCaptor<Book> bookCaptor = ArgumentCaptor.forClass(Book.class);
+        verify(bookRepository).save(bookCaptor.capture());
+
+        assertEquals("Hayvanlar Çiftliği", bookCaptor.getValue().getTitle());
+        assertEquals(10, bookCaptor.getValue().getStockCount());
     }
 
     @Test
     void updateBookStockShouldIncreaseStockCount() throws OutOfStockException, BookNotFoundException {
         Book book = new Book();
         book.setStockCount(10);
-        book.setName("Book1");
+        book.setTitle("Book1");
 
         when(bookRepository.findById(anyString())).thenReturn(Optional.of(book));
 
@@ -61,7 +66,7 @@ class BookServiceTest {
     void updateBookStockShouldDecreaseStockCount() throws OutOfStockException, BookNotFoundException {
         Book book = new Book();
         book.setStockCount(10);
-        book.setName("Book1");
+        book.setTitle("Book1");
 
         when(bookRepository.findById(anyString())).thenReturn(Optional.of(book));
 
@@ -76,7 +81,7 @@ class BookServiceTest {
     void updateBookStockShouldThrowOutOfStockException() {
         Book book = new Book();
         book.setStockCount(2);
-        book.setName("Book1");
+        book.setTitle("Book1");
 
         when(bookRepository.findById(anyString())).thenReturn(Optional.of(book));
         var updateBookStockDto = UpdateBookStockDto.builder().bookId("1").stockChangeCount(-3).build();

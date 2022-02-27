@@ -16,6 +16,7 @@ public class UpdateBookStockRequest {
     @NotNull
     private String id;
 
+    @NotNull
     private long stockChangeCount;
 
     public UpdateBookStockDto toModel() {

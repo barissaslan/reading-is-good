@@ -1,5 +1,6 @@
 package com.barisaslan.readingisgood.domain.service;
 
+import com.barisaslan.readingisgood.common.exceptions.CustomerNotFoundException;
 import com.barisaslan.readingisgood.common.exceptions.EmailUserAlreadyExistException;
 import com.barisaslan.readingisgood.dao.entity.Customer;
 import com.barisaslan.readingisgood.dao.repository.CustomerRepository;
@@ -18,6 +19,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public Customer findCustomerByEmail(String email) throws CustomerNotFoundException {
+        return customerRepository.findCustomerByEmail(email).orElseThrow(CustomerNotFoundException::new);
+    }
 
     @Override
     public void createCustomer(CustomerDto customerDto) throws EmailUserAlreadyExistException {

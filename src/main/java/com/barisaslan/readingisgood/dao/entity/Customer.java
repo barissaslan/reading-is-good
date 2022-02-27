@@ -2,7 +2,9 @@ package com.barisaslan.readingisgood.dao.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Data
 @Document
@@ -32,6 +35,10 @@ public class Customer implements UserDetails {
 
     @Size(max = 50)
     private String lastName;
+
+    @ReadOnlyProperty
+    @DocumentReference(lookup = "{'customer':?#{#self._id} }")
+    List<Order> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

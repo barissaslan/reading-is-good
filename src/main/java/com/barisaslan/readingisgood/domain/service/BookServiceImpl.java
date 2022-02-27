@@ -16,16 +16,22 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
+    public Book findBook(String id) throws BookNotFoundException {
+        return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+    }
+
+    @Override
     public void addBook(BookDto bookDto) {
         Book book = new Book();
-        book.setName(book.getName());
-        book.setStockCount(book.getStockCount());
+        book.setTitle(bookDto.getTitle());
+        book.setStockCount(bookDto.getStockCount());
+        book.setPrice(bookDto.getPrice());
         bookRepository.save(book);
     }
 
     @Override
     public void updateBookStock(UpdateBookStockDto dto) throws BookNotFoundException, OutOfStockException {
-        Book book = bookRepository.findById(dto.getBookId()).orElseThrow(BookNotFoundException::new);
+        Book book = findBook(dto.getBookId());
 
         if (book.getStockCount() + dto.getStockChangeCount() < 0) {
             throw new OutOfStockException();

@@ -25,7 +25,7 @@ public class BookIntegrationTest {
     @Test
     public void shouldDenyConcurrentStockUpdates() throws BookNotFoundException {
         final Book book = new Book();
-        book.setName("Book1");
+        book.setTitle("Book1");
         book.setStockCount(5);
         bookRepository.save(book);
 
