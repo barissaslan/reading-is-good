@@ -15,8 +15,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static com.barisaslan.readingisgood.helper.TestHelper.asJsonString;
 import static com.barisaslan.readingisgood.helper.TestHelper.getFakeCreateOrderRequest;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,6 +46,24 @@ class OrderControllerTest {
                 .andExpect(status().isCreated()).andReturn();
 
         verify(orderService).createOrder(any(OrderDto.class));
+        verifyNoMoreInteractions(orderService);
+    }
+
+    @Test
+    void getOrderShouldReturnSuccess() throws Exception {
+        mvc.perform(get("/api/orders/12"))
+                .andExpect(status().isOk()).andReturn();
+
+        verify(orderService).getOrderById(anyString());
+        verifyNoMoreInteractions(orderService);
+    }
+
+    @Test
+    void getOrdersByDateIntervalShouldReturnSuccess() throws Exception {
+        mvc.perform(get("/api/orders/12"))
+                .andExpect(status().isOk()).andReturn();
+
+        verify(orderService).getOrderById(anyString());
         verifyNoMoreInteractions(orderService);
     }
 

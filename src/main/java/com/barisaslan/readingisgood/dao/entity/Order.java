@@ -1,5 +1,6 @@
 package com.barisaslan.readingisgood.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,6 +25,7 @@ public class Order {
 
     private HashMap<String, Long> orderItems;
 
+    @JsonIgnore
     @DocumentReference
     private Customer customer;
 
