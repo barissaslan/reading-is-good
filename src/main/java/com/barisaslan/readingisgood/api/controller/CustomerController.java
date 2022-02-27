@@ -21,10 +21,10 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<Void> register(@RequestBody @Valid RegisterCustomerRequest registerRequest)
+    public ResponseEntity<Void> register(@RequestBody @Valid RegisterCustomerRequest request)
             throws EmailUserAlreadyExistException {
 
-        customerService.createCustomer(registerRequest.getEmail(), registerRequest.getPassword());
+        customerService.createCustomer(request.toModel());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

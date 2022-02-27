@@ -1,6 +1,7 @@
 package com.barisaslan.readingisgood.api.dto;
 
 
+import com.barisaslan.readingisgood.domain.dto.CustomerDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,12 @@ public class RegisterCustomerRequest {
 
     @NotNull
     private String password;
+
+    public CustomerDto toModel() {
+        return CustomerDto.builder()
+                .email(email)
+                .password(password)
+                .build();
+    }
 
 }

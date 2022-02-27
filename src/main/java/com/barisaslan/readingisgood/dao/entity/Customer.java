@@ -21,7 +21,7 @@ public class Customer implements UserDetails {
 
     @Email
     @NotNull
-    @Size(max = 50)
+    @Size(max = 320)
     private String email;
 
     @NotNull

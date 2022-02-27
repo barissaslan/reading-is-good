@@ -3,7 +3,6 @@ package com.barisaslan.readingisgood.domain.service;
 import com.barisaslan.readingisgood.common.exceptions.EmailUserAlreadyExistException;
 import com.barisaslan.readingisgood.dao.entity.Customer;
 import com.barisaslan.readingisgood.dao.repository.CustomerRepository;
-import com.barisaslan.readingisgood.helper.TestHelper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -16,10 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
+import static com.barisaslan.readingisgood.helper.TestHelper.getFakeCustomer;
+import static com.barisaslan.readingisgood.helper.TestHelper.getFakeCustomerDto;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceTest {
@@ -32,28 +32,28 @@ class CustomerServiceTest {
 
     @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    
+
     @Test
     void createUserShouldReturnUser() throws EmailUserAlreadyExistException {
         when(customerRepository.findCustomerByEmail(anyString())).thenReturn(Optional.empty());
         when(bCryptPasswordEncoder.encode(anyString())).thenReturn("encodedPassword");
 
-        customerService.createCustomer("test@test.com", "password");
+        customerService.createCustomer(getFakeCustomerDto());
 
         ArgumentCaptor<Customer> userCaptor = ArgumentCaptor.forClass(Customer.class);
         verify(customerRepository).save(userCaptor.capture());
         verifyNoMoreInteractions(customerRepository);
 
-        assertEquals("test@test.com", userCaptor.getValue().getEmail());
+        assertEquals("baris@test.com", userCaptor.getValue().getEmail());
     }
 
     @Test
     void createUserShouldThrowEmailUserAlreadyExistException() {
-        when(customerRepository.findCustomerByEmail(anyString())).thenReturn(Optional.of(TestHelper.getFakeCustomer()));
+        when(customerRepository.findCustomerByEmail(anyString())).thenReturn(Optional.of(getFakeCustomer()));
 
         EmailUserAlreadyExistException thrown = assertThrows(
                 EmailUserAlreadyExistException.class,
-                () -> customerService.createCustomer("test@test.com", "password")
+                () -> customerService.createCustomer(getFakeCustomerDto())
         );
 
         assertTrue(thrown.getMessage().contains("exists"));
@@ -61,7 +61,7 @@ class CustomerServiceTest {
 
     @Test
     void getCustomerByEmailShouldReturnCustomer() {
-        when(customerRepository.findCustomerByEmail(anyString())).thenReturn(Optional.of(TestHelper.getFakeCustomer()));
+        when(customerRepository.findCustomerByEmail(anyString())).thenReturn(Optional.of(getFakeCustomer()));
 
         final UserDetails customer = customerService.loadUserByUsername("test");
 
@@ -79,5 +79,5 @@ class CustomerServiceTest {
 
         assertTrue(thrown.getMessage().contains("test"));
     }
-    
+
 }

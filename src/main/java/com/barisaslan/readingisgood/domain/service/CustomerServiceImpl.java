@@ -3,6 +3,7 @@ package com.barisaslan.readingisgood.domain.service;
 import com.barisaslan.readingisgood.common.exceptions.EmailUserAlreadyExistException;
 import com.barisaslan.readingisgood.dao.entity.Customer;
 import com.barisaslan.readingisgood.dao.repository.CustomerRepository;
+import com.barisaslan.readingisgood.domain.dto.CustomerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,16 +20,16 @@ public class CustomerServiceImpl implements CustomerService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public Customer createCustomer(String email, String password) throws EmailUserAlreadyExistException {
-        Optional<Customer> customer = customerRepository.findCustomerByEmail(email);
+    public void createCustomer(CustomerDto customerDto) throws EmailUserAlreadyExistException {
+        Optional<Customer> customer = customerRepository.findCustomerByEmail(customerDto.getEmail());
         if (customer.isPresent()) {
             throw new EmailUserAlreadyExistException();
         }
 
         var newCustomer = new Customer();
-        newCustomer.setEmail(email);
-        newCustomer.setPassword(bCryptPasswordEncoder.encode(password));
-        return customerRepository.save(newCustomer);
+        newCustomer.setEmail(customerDto.getEmail());
+        newCustomer.setPassword(bCryptPasswordEncoder.encode(customerDto.getPassword()));
+        customerRepository.save(newCustomer);
     }
 
     @Override

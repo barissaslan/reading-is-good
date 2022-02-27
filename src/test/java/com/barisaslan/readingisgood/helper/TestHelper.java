@@ -2,9 +2,8 @@ package com.barisaslan.readingisgood.helper;
 
 import com.barisaslan.readingisgood.api.dto.RegisterCustomerRequest;
 import com.barisaslan.readingisgood.dao.entity.Customer;
+import com.barisaslan.readingisgood.domain.dto.CustomerDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.Optional;
 
 public class TestHelper {
 
@@ -25,6 +24,13 @@ public class TestHelper {
         customer.setEmail("baris@test.com");
         customer.setPassword("password");
         return customer;
+    }
+
+    public static CustomerDto getFakeCustomerDto() {
+        return CustomerDto.builder()
+                .email("baris@test.com")
+                .password("password")
+                .build();
     }
 
 }
