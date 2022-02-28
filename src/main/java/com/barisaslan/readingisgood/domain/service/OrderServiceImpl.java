@@ -14,12 +14,13 @@ import com.barisaslan.readingisgood.domain.dto.OrderDto;
 import com.barisaslan.readingisgood.domain.dto.OrderItemDto;
 import com.barisaslan.readingisgood.domain.dto.UpdateBookStockDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -46,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomer(customer);
 
         orderRepository.save(order);
+        log.debug("Order created: {}", order);
     }
 
     private HashMap<String, Long> prepareOrderItems(OrderDto orderDto) throws BookNotFoundException, OutOfStockException {

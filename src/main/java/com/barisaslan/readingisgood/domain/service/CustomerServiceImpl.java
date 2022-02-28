@@ -10,6 +10,7 @@ import com.barisaslan.readingisgood.dao.repository.CustomerRepository;
 import com.barisaslan.readingisgood.domain.dto.CustomerDto;
 import com.barisaslan.readingisgood.domain.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
@@ -36,6 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void createCustomer(CustomerDto customerDto) throws EmailUserAlreadyExistException {
         Optional<Customer> customer = customerRepository.findCustomerByEmail(customerDto.getEmail());
         if (customer.isPresent()) {
+            log.error("EmailUserAlreadyExistException! Email: {}", customerDto.getEmail());
             throw new EmailUserAlreadyExistException();
         }
 
@@ -43,6 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
         newCustomer.setEmail(customerDto.getEmail());
         newCustomer.setPassword(bCryptPasswordEncoder.encode(customerDto.getPassword()));
         customerRepository.save(newCustomer);
+        log.debug("Customer created: {}", newCustomer);
     }
 
     @Override
@@ -50,6 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customer = customerRepository.findCustomerByEmail(email);
 
         if (customer.isEmpty()) {
+            log.error("UsernameNotFoundException. Email: {}", email);
             throw new UsernameNotFoundException(email);
         }
 

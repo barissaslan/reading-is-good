@@ -7,8 +7,10 @@ import com.barisaslan.readingisgood.dao.repository.BookRepository;
 import com.barisaslan.readingisgood.domain.dto.BookDto;
 import com.barisaslan.readingisgood.domain.dto.UpdateBookStockDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
@@ -27,6 +29,7 @@ public class BookServiceImpl implements BookService {
         book.setStockCount(bookDto.getStockCount());
         book.setPrice(bookDto.getPrice());
         bookRepository.save(book);
+        log.debug("Book added: {}", book);
     }
 
     @Override
@@ -39,6 +42,7 @@ public class BookServiceImpl implements BookService {
 
         book.setStockCount(book.getStockCount() + dto.getStockChangeCount());
         bookRepository.save(book);
+        log.debug("Book stock updated. Stock change count: {}, updated book: {}", dto.getStockChangeCount(), book);
     }
 
 }
