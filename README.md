@@ -2,7 +2,7 @@
 
 Technologies: Java 11, Spring Boot, MongoDB
 
-You can consume endpoints with swagger: http://localhost:8080/swagger-ui/index.html
+You can use endpoints with swagger: http://localhost:8080/swagger-ui/index.html
 
 ## Build
 

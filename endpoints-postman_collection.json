@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "a58b1850-f298-4e4d-836c-4ff4b4d5234c",
+		"name": "getir",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/api/customers/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"test@gmail.com\",\r\n  \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/customers/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"login"
+					]
+				},
+				"description": "Customer Login"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/customers/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"test@gmail.com\",\r\n\t\"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/customers/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"register"
+					]
+				},
+				"description": "Customer Register"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/books/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY0NjQxNzIwNX0.SUTlpT7PqXKQNbpiUCRcPmTc8CW0gRI06swHr141G4Db7FbbUNK8uskXDO66PQ2WyXrh0AlrNIPeb7P0-hsi6g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"title\": \"Hayvanlar Çiftliği\",\r\n\t\"stockCount\": 100,\r\n    \"price\": 27.4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/books/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						""
+					]
+				},
+				"description": "Add Books"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/books/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY0NjQxNzIwNX0.SUTlpT7PqXKQNbpiUCRcPmTc8CW0gRI06swHr141G4Db7FbbUNK8uskXDO66PQ2WyXrh0AlrNIPeb7P0-hsi6g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"621b94528ab67b3cc3b0f5eb2\",\r\n\t\"stockChangeCount\": -46\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/books/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						""
+					]
+				},
+				"description": "Update Book Stocks"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/orders/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY0NjQxNzIwNX0.SUTlpT7PqXKQNbpiUCRcPmTc8CW0gRI06swHr141G4Db7FbbUNK8uskXDO66PQ2WyXrh0AlrNIPeb7P0-hsi6g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"customerEmail\": \"test@gmail.com\",\r\n\t\"orderItems\": [\r\n        {\r\n            \"bookId\": \"621be0eb9a8f897920070c01\",\r\n            \"count\": 1\r\n        },\r\n        {\r\n            \"bookId\": \"621be0f89a8f897920070c02\",\r\n            \"count\": 1\r\n        },\r\n        {\r\n            \"bookId\": \"621be1049a8f897920070c03\",\r\n            \"count\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/orders/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						""
+					]
+				},
+				"description": "Create Order"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/orders/621ba364df597b670bffdd30",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY0NjM5NzE4N30.W3MPwCpKu3btoj8DXjs5lL25cdjwQG2B6TcbKV7PWqURTCJvRO7cZ4CycEvI7jck1ue1h0eEIVi2vC-46VA7lg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/orders/621ba364df597b670bffdd30",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"621ba364df597b670bffdd30"
+					]
+				},
+				"description": "Get Order By Id"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/customers/test@gmail.com/orders/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY0NjQxNzIwNX0.SUTlpT7PqXKQNbpiUCRcPmTc8CW0gRI06swHr141G4Db7FbbUNK8uskXDO66PQ2WyXrh0AlrNIPeb7P0-hsi6g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/customers/test@gmail.com/orders/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers",
+						"test@gmail.com",
+						"orders",
+						""
+					]
+				},
+				"description": "Get Customer Orders"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/orders/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY0NjM5NzE4N30.W3MPwCpKu3btoj8DXjs5lL25cdjwQG2B6TcbKV7PWqURTCJvRO7cZ4CycEvI7jck1ue1h0eEIVi2vC-46VA7lg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"startDate\": \"01/01/2022 00:00:00\",\r\n    \"endDate\": \"01/10/2022 00:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/orders/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						""
+					]
+				},
+				"description": "Get Orders By Date Between"
+			},
+			"response": []
+		}
+	]
+}
