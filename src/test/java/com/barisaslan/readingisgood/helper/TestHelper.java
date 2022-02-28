@@ -49,6 +49,18 @@ public class TestHelper {
         return request;
     }
 
+    public static CreateOrderRequest getFakeCreateOrderRequest(String bookId) {
+        var request = new CreateOrderRequest();
+        request.setCustomerEmail("baris@test.com");
+
+        List<OrderItemRequest> orderItemRequestList = new ArrayList<>();
+        orderItemRequestList.add(new OrderItemRequest(bookId, 1));
+
+        request.setOrderItems(orderItemRequestList);
+
+        return request;
+    }
+
     public static Customer getFakeCustomer() {
         var customer = new Customer();
         customer.setId("1");
@@ -113,6 +125,14 @@ public class TestHelper {
         order.setOrderItems(orderItems);
 
         return order;
+    }
+
+    public static String objectToJsonString(Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
 }
