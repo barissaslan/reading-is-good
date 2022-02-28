@@ -4,6 +4,8 @@ Technologies: Java 11, Spring Boot, MongoDB
 
 You can use endpoints with swagger: http://localhost:8080/swagger-ui/index.html
 
+You can use postman request with endpoints-postman_collection.json file.
+
 ## Build
 
 * In the root directory of project:
